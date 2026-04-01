@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — GenHome</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23111'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-family='serif' fill='%23c8890a'>G</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #c8890a;
+      --dark: #111;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: #fff; color: #222; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      background: var(--dark); padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: #fff; font-weight: 700;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: flex; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.75); font-size: .9rem;
+      transition: color .15s;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    /* HERO */
+    .about-hero {
+      background: var(--dark); color: #fff;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: .75rem;
+    }
+    .about-hero h1 span { color: var(--accent); }
+    .about-hero p {
+      color: rgba(255,255,255,.6); font-size: 1.05rem;
+    }
+
+    /* CONTENT */
+    .about-content {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+    .about-content p {
+      font-size: 1.05rem; line-height: 1.9; color: #333;
+      margin-bottom: 1.4rem;
+    }
+    .about-content p:last-of-type { margin-bottom: 0; }
+
+    /* CTA */
+    .about-cta {
+      background: #f8f7f4; padding: 3.5rem 2rem; text-align: center;
+    }
+    .about-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; margin-bottom: .75rem; color: var(--dark);
+    }
+    .about-cta p { color: #555; margin-bottom: 1.5rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent); color: #fff;
+      padding: .75rem 2rem; border-radius: 8px;
+      font-weight: 600; font-size: .95rem;
+      transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .88; }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.5);
+      text-align: center; padding: 1.5rem;
+      font-size: .82rem;
+    }
+    footer span { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Gen<span>Home</span></a>
+  <a href="/" class="nav-back">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+    Back to Store
+  </a>
+</nav>
+
+<div class="about-hero">
+  <h1>About <span>GenHome</span></h1>
+  <p>Reliable power solutions for homes, businesses, and job sites.</p>
+</div>
+
+<div class="about-content">
+  <p>We are a dedicated supplier of diesel generators and industrial power equipment, providing reliable solutions for homes, businesses, and job sites. Our focus is simple — deliver dependable power systems at competitive prices without unnecessary delays or complications.</p>
+  <p>We specialize in diesel generators ranging from 15kW to 60kW+, including trusted engine platforms like Perkins, Cummins, Yanmar, and similar industrial-grade systems. Every unit is selected for durability, efficiency, and long-term performance, whether for backup power or continuous use.</p>
+  <p>Our approach is direct and customer-focused. We handle everything from unit selection and technical guidance to shipping and delivery coordination, making the process straightforward no matter where you're located. We work with both individual buyers and businesses, including bulk orders for commercial use. Transparency and communication are key to how we do business.</p>
+  <p>Whether you need a generator for a home, a job site, or a full commercial setup, we're here to help you find the right solution quickly and efficiently.</p>
+</div>
+
+<div class="about-cta">
+  <h3>Ready to find your generator?</h3>
+  <p>Browse our full catalog of 80+ diesel and standby generators.</p>
+  <a href="/" class="btn-primary">Shop Generators</a>
+</div>
+
+<footer>
+  &copy; <script>document.write(new Date().getFullYear())</script> <span>GenHome</span> Sales. All rights reserved.
+</footer>
+
+</body>
+</html>

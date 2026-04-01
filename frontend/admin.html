@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenHome — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:           #f7f5f2;
+      --surface:      #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --accent:       #c8890a;
+      --accent-light: #fdf3e1;
+      --border:       #e4e0d8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    button { font-family: inherit; cursor: pointer; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ── Login ── */
+    #loginScreen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; background: linear-gradient(160deg, #f7f5f2 55%, #fdf3e1 100%);
+    }
+    .login-card {
+      background: var(--surface); border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12); padding: 2.5rem 2.25rem; width: 100%; max-width: 400px;
+    }
+    .login-logo { text-align: center; margin-bottom: 1.75rem; }
+    .login-logo .logo-name {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600;
+    }
+    .login-logo .logo-name span { color: var(--accent); }
+    .login-logo .logo-sub {
+      font-size: .8rem; color: var(--muted); margin-top: .3rem;
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label {
+      display: block; font-size: .8rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
+      padding: .65rem .9rem; font-size: .95rem; background: var(--bg); color: var(--text); transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--accent); background: #fff;
+    }
+    .login-error {
+      display: none; background: #fdf0ef; border: 1px solid #f5c6c6; color: #c0392b;
+      border-radius: 8px; padding: .65rem .9rem; font-size: .88rem; margin-bottom: 1rem;
+    }
+    .btn-signin {
+      width: 100%; padding: .8rem; background: var(--accent); color: #fff; border: none;
+      border-radius: 8px; font-size: 1rem; font-weight: 600; transition: background .2s, opacity .2s; margin-top: .25rem;
+    }
+    .btn-signin:hover:not(:disabled) { background: #b57a09; }
+    .btn-signin:disabled { opacity: .65; cursor: not-allowed; }
+
+    /* ── Dashboard layout ── */
+    #dashboard { display: none; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 60px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar-right .admin-badge { font-size: .8rem; color: var(--muted); font-weight: 500; }
+    #autoRefreshIndicator { font-size: .78rem; color: var(--muted); }
+    .btn-signout {
+      background: none; border: 1.5px solid var(--border); border-radius: 6px;
+      padding: .35rem .8rem; font-size: .85rem; font-weight: 600; color: var(--muted); transition: border-color .2s, color .2s;
+    }
+    .btn-signout:hover { border-color: #c0392b; color: #c0392b; }
+    .dash-content { flex: 1; padding: 2rem 1.5rem; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    /* ── Stats ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; }
+    .stat-card .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: .35rem; }
+    .stat-card .stat-label { font-size: .82rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 0; margin-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    .tab-btn {
+      background: none; border: none; padding: .65rem 1.4rem; font-size: .92rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .15s, border-color .15s;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.25rem; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .filter-bar input, .filter-bar select {
+      border: 1.5px solid var(--border); border-radius: 8px; padding: .55rem .85rem;
+      font-size: .9rem; background: var(--bg); color: var(--text);
+    }
+    .filter-bar input:focus, .filter-bar select:focus { outline: none; border-color: var(--accent); }
+    .filter-bar input { flex: 1; min-width: 200px; }
+    .btn-refresh {
+      background: var(--accent-light); border: 1.5px solid var(--accent); color: var(--accent);
+      border-radius: 8px; padding: .55rem 1rem; font-size: .9rem; font-weight: 600; transition: background .2s; white-space: nowrap;
+    }
+    .btn-refresh:hover { background: #f5e6c0; }
+
+    /* ── Table ── */
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    thead { background: #faf9f7; border-bottom: 1px solid var(--border); }
+    th {
+      padding: .8rem 1rem; text-align: left; font-size: .75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em; color: var(--muted); white-space: nowrap;
+    }
+    td { padding: .85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #faf9f7; }
+    .badge { display: inline-block; padding: .25rem .7rem; border-radius: 99px; font-size: .78rem; font-weight: 600; }
+    .badge-pending   { background: #fdf3e1; color: #b57a09; }
+    .badge-confirmed { background: #e8f0fe; color: #1a56db; }
+    .badge-completed { background: #e6f4ea; color: #1e8e3e; }
+    .badge-cancelled { background: #f0f0f0; color: #666; }
+    .actions { display: flex; gap: .5rem; align-items: center; }
+    .btn-view {
+      background: var(--accent-light); border: 1px solid var(--accent); color: var(--accent);
+      border-radius: 6px; padding: .3rem .7rem; font-size: .8rem; font-weight: 600; white-space: nowrap;
+    }
+    .btn-view:hover { background: #f5e6c0; }
+    .status-select { border: 1px solid var(--border); border-radius: 6px; padding: .3rem .5rem; font-size: .8rem; background: var(--bg); color: var(--text); }
+    .btn-delete {
+      background: none; border: 1px solid #f5c6c6; color: #c0392b;
+      border-radius: 6px; padding: .3rem .7rem; font-size: .8rem; font-weight: 600; transition: background .2s; white-space: nowrap;
+    }
+    .btn-delete:hover { background: #fdf0ef; }
+    .table-empty { padding: 3rem; text-align: center; color: var(--muted); font-size: .95rem; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(26,26,26,.55);
+      z-index: 500; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: var(--surface); border-radius: 16px; box-shadow: 0 16px 60px rgba(0,0,0,.2);
+      width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--surface); z-index: 1;
+    }
+    .modal-header h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; }
+    .btn-close { background: none; border: none; font-size: 1.4rem; color: var(--muted); line-height: 1; padding: .2rem .4rem; border-radius: 4px; }
+    .btn-close:hover { background: var(--bg); color: var(--text); }
+    .modal-body { padding: 1.5rem; }
+    .modal-field { display: flex; gap: .75rem; margin-bottom: 1rem; font-size: .92rem; }
+    .modal-field .mf-label { font-weight: 600; color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; min-width: 130px; padding-top: 1px; }
+    .modal-field .mf-value { color: var(--text); flex: 1; }
+    .modal-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+    .modal-section-title { font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .75rem; }
+    .order-items-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-bottom: 1rem; }
+    .order-items-table th { padding: .5rem .75rem; background: var(--bg); text-align: left; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .order-items-table td { padding: .6rem .75rem; border-bottom: 1px solid var(--border); }
+    .order-items-table tr:last-child td { border-bottom: none; }
+    .order-total-row { display: flex; justify-content: flex-end; font-weight: 700; font-size: 1rem; padding-top: .5rem; }
+    .modal-body textarea {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: .65rem .9rem;
+      font-size: .92rem; background: var(--bg); color: var(--text); resize: vertical; min-height: 90px; transition: border-color .2s;
+    }
+    .modal-body textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+    .btn-save-notes {
+      margin-top: .65rem; background: var(--accent); border: none; color: #fff;
+      border-radius: 8px; padding: .55rem 1.2rem; font-size: .9rem; font-weight: 600; transition: background .2s;
+    }
+    .btn-save-notes:hover { background: #b57a09; }
+    .notes-saved { display: none; font-size: .82rem; color: #1e8e3e; margin-left: .75rem; }
+
+    @media (max-width: 600px) {
+      .dash-content { padding: 1rem; }
+      .topbar { padding: 0 1rem; }
+      .filter-bar { padding: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="logo-name">Gen<span>Home</span></div>
+      <div class="logo-sub">Admin Panel</div>
+    </div>
+    <div class="login-error" id="loginError">Invalid username or password.</div>
+    <form onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" autocomplete="username" required placeholder="admin" />
+      </div>
+      <div class="form-group">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password" required placeholder="••••••••" />
+      </div>
+      <button type="submit" class="btn-signin" id="signinBtn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">Gen<span>Home</span> <span style="font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:var(--muted);margin-left:.25rem;">Admin</span></div>
+    <div class="topbar-right">
+      <span class="admin-badge" id="adminBadge"></span>
+      <span id="autoRefreshIndicator"></span>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="dash-content">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotalOrders">—</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statPendingOrders">—</div>
+        <div class="stat-label">Pending Orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statOrdersMonth">—</div>
+        <div class="stat-label">Orders This Month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statTotalQuotes">—</div>
+        <div class="stat-label">Quote Requests</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statPendingQuotes">—</div>
+        <div class="stat-label">Pending Quotes</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('orders')">Orders</button>
+      <button class="tab-btn" onclick="switchTab('quotes')">Quote Requests</button>
+    </div>
+
+    <!-- Orders tab -->
+    <div class="tab-panel active" id="tabOrders">
+      <div class="filter-bar">
+        <input type="search" id="orderSearch" placeholder="Search name or email…" oninput="filterOrders()" />
+        <select id="orderStatusFilter" onchange="fetchOrders()">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <button class="btn-refresh" onclick="refreshAll()">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="8" class="table-empty">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotes tab -->
+    <div class="tab-panel" id="tabQuotes">
+      <div class="filter-bar">
+        <input type="search" id="quoteSearch" placeholder="Search name or email…" oninput="filterQuotes()" />
+        <select id="quoteStatusFilter" onchange="fetchQuotes()">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <button class="btn-refresh" onclick="refreshAll()">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Service / Model</th>
+                <th>Details</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="quotesTableBody">
+              <tr><td colspan="8" class="table-empty">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ORDER MODAL ── -->
+<div class="modal-overlay" id="orderModal" onclick="closeModal('orderModal', event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="orderModalTitle">Order Details</h3>
+      <button class="btn-close" onclick="closeModalDirect('orderModal')">×</button>
+    </div>
+    <div class="modal-body" id="orderModalBody"></div>
+  </div>
+</div>
+
+<!-- ── QUOTE MODAL ── -->
+<div class="modal-overlay" id="quoteModal" onclick="closeModal('quoteModal', event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="quoteModalTitle">Quote Details</h3>
+      <button class="btn-close" onclick="closeModalDirect('quoteModal')">×</button>
+    </div>
+    <div class="modal-body" id="quoteModalBody"></div>
+  </div>
+</div>
+
+<script>
+  let authHeader = '';
+  let allOrders  = [];
+  let allQuotes  = [];
+  let refreshTimer = null;
+  let refreshCountdown = 60;
+  let activeTab = 'orders';
+
+  // ── Auth ──
+  function makeAuthHeader(u, p) { return 'Basic ' + btoa(u + ':' + p); }
+
+  async function apiFetch(path, opts = {}) {
+    const res = await fetch(path, {
+      ...opts,
+      headers: { 'Authorization': authHeader, 'Content-Type': 'application/json', ...(opts.headers || {}) },
+    });
+    if (res.status === 401) { signOut(); throw new Error('Session expired'); }
+    return res;
+  }
+
+  // ── Login ──
+  async function doLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+    const btn  = document.getElementById('signinBtn');
+    const err  = document.getElementById('loginError');
+    btn.disabled = true; btn.textContent = 'Signing in…'; err.style.display = 'none';
+    const header = makeAuthHeader(user, pass);
+    try {
+      const res = await fetch('/api/admin/stats', { headers: { 'Authorization': header } });
+      if (res.status === 200) {
+        authHeader = header;
+        document.getElementById('adminBadge').textContent = user;
+        showDashboard();
+      } else {
+        err.style.display = 'block';
+      }
+    } catch {
+      err.textContent = 'Network error — is the server running?';
+      err.style.display = 'block';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Sign In';
+    }
+  }
+
+  function signOut() {
+    authHeader = ''; allOrders = []; allQuotes = [];
+    clearInterval(refreshTimer); refreshTimer = null;
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginPass').value = '';
+  }
+
+  function showDashboard() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'flex';
+    refreshAll();
+    startAutoRefresh();
+  }
+
+  async function refreshAll() {
+    await Promise.all([fetchStats(), fetchOrders(), fetchQuotes()]);
+    resetCountdown();
+  }
+
+  // ── Tabs ──
+  function switchTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', (i === 0 && tab === 'orders') || (i === 1 && tab === 'quotes'));
+    });
+    document.getElementById('tabOrders').classList.toggle('active', tab === 'orders');
+    document.getElementById('tabQuotes').classList.toggle('active', tab === 'quotes');
+  }
+
+  // ── Stats ──
+  async function fetchStats() {
+    try {
+      const d = await (await apiFetch('/api/admin/stats')).json();
+      document.getElementById('statTotalOrders').textContent   = d.total_orders;
+      document.getElementById('statPendingOrders').textContent = d.pending_orders;
+      document.getElementById('statOrdersMonth').textContent   = d.orders_month;
+      document.getElementById('statTotalQuotes').textContent   = d.total_quotes;
+      document.getElementById('statPendingQuotes').textContent = d.pending_quotes;
+    } catch {}
+  }
+
+  // ── Orders ──
+  async function fetchOrders() {
+    const st = document.getElementById('orderStatusFilter').value;
+    let url = '/api/admin/orders';
+    if (st) url += '?status=' + encodeURIComponent(st);
+    try {
+      allOrders = await (await apiFetch(url)).json();
+      filterOrders();
+    } catch {}
+  }
+
+  function filterOrders() {
+    const term = document.getElementById('orderSearch').value.toLowerCase();
+    const list = term
+      ? allOrders.filter(o =>
+          (o.first_name + ' ' + o.last_name).toLowerCase().includes(term) ||
+          o.email.toLowerCase().includes(term))
+      : allOrders;
+    renderOrdersTable(list);
+  }
+
+  function renderOrdersTable(orders) {
+    const tbody = document.getElementById('ordersTableBody');
+    if (!orders.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="table-empty">No orders found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = orders.map(o => {
+      const items = parseItems(o.items);
+      const summary = items.length
+        ? items.map(i => `${i.name} x${i.quantity}`).join(', ')
+        : '—';
+      return `<tr id="orow-${o.id}">
+        <td style="white-space:nowrap">${fmtDate(o.created_at)}</td>
+        <td style="white-space:nowrap">${esc(o.first_name)} ${esc(o.last_name)}</td>
+        <td style="white-space:nowrap">${esc(o.phone)}</td>
+        <td>${esc(o.email)}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(summary)}">${esc(summary)}</td>
+        <td style="white-space:nowrap"><strong>$${Number(o.total).toLocaleString()}</strong></td>
+        <td><span class="badge badge-${o.status}">${o.status}</span></td>
+        <td>
+          <div class="actions">
+            <button class="btn-view" onclick="openOrderModal(${o.id})">View</button>
+            <select class="status-select" onchange="updateOrderStatus(${o.id}, this.value)">
+              <option value="pending"   ${o.status==='pending'   ?'selected':''}>Pending</option>
+              <option value="confirmed" ${o.status==='confirmed' ?'selected':''}>Confirmed</option>
+              <option value="completed" ${o.status==='completed' ?'selected':''}>Completed</option>
+              <option value="cancelled" ${o.status==='cancelled' ?'selected':''}>Cancelled</option>
+            </select>
+            <button class="btn-delete" onclick="deleteOrder(${o.id})">Delete</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function updateOrderStatus(id, st) {
+    try {
+      const res = await apiFetch(`/api/admin/orders/${id}`, { method: 'PATCH', body: JSON.stringify({ status: st }) });
+      if (res.ok) {
+        const updated = await res.json();
+        allOrders = allOrders.map(o => o.id === id ? updated : o);
+        filterOrders(); fetchStats();
+      }
+    } catch {}
+  }
+
+  async function deleteOrder(id) {
+    if (!confirm('Delete this order? This cannot be undone.')) return;
+    try {
+      const res = await apiFetch(`/api/admin/orders/${id}`, { method: 'DELETE' });
+      if (res.ok) { allOrders = allOrders.filter(o => o.id !== id); filterOrders(); fetchStats(); }
+    } catch {}
+  }
+
+  function openOrderModal(id) {
+    const o = allOrders.find(x => x.id === id);
+    if (!o) return;
+    document.getElementById('orderModalTitle').textContent = `Order #${o.id} — ${o.first_name} ${o.last_name}`;
+    const items = parseItems(o.items);
+    const itemRows = items.map(i =>
+      `<tr><td>${esc(i.name)}</td><td>${i.kw ? i.kw + 'kW' : '—'} ${i.fuel ? '· ' + i.fuel : ''}</td><td>x${i.quantity}</td><td>$${Number(i.unit_price).toLocaleString()}</td></tr>`
+    ).join('');
+
+    document.getElementById('orderModalBody').innerHTML = `
+      <div class="modal-section-title">Customer</div>
+      <div class="modal-field"><span class="mf-label">Name</span><span class="mf-value">${esc(o.first_name)} ${esc(o.last_name)}</span></div>
+      <div class="modal-field"><span class="mf-label">Phone</span><span class="mf-value">${esc(o.phone)}</span></div>
+      <div class="modal-field"><span class="mf-label">Email</span><span class="mf-value">${esc(o.email)}</span></div>
+      ${o.company ? `<div class="modal-field"><span class="mf-label">Company</span><span class="mf-value">${esc(o.company)}</span></div>` : ''}
+      ${o.address ? `<div class="modal-field"><span class="mf-label">Address</span><span class="mf-value">${esc(o.address)}, ${esc(o.city)} ${esc(o.state)} ${esc(o.zip)}</span></div>` : ''}
+      ${o.contact_pref ? `<div class="modal-field"><span class="mf-label">Contact Pref</span><span class="mf-value">${esc(o.contact_pref)}</span></div>` : ''}
+      ${o.best_time ? `<div class="modal-field"><span class="mf-label">Best Time</span><span class="mf-value">${esc(o.best_time)}</span></div>` : ''}
+      <div class="modal-field"><span class="mf-label">Status</span><span class="mf-value"><span class="badge badge-${o.status}">${o.status}</span></span></div>
+      <div class="modal-field"><span class="mf-label">Submitted</span><span class="mf-value">${fmtDate(o.created_at)}</span></div>
+      <hr class="modal-divider" />
+      <div class="modal-section-title">Items Ordered</div>
+      <table class="order-items-table">
+        <thead><tr><th>Product</th><th>Spec</th><th>Qty</th><th>Price</th></tr></thead>
+        <tbody>${itemRows}</tbody>
+      </table>
+      <div class="order-total-row">Total: $${Number(o.total).toLocaleString()}</div>
+      <hr class="modal-divider" />
+      ${o.notes ? `<div class="modal-field"><span class="mf-label">Notes</span><span class="mf-value">${esc(o.notes)}</span></div><hr class="modal-divider" />` : ''}
+      <div class="form-group" style="margin-bottom:.5rem;">
+        <label>Internal Notes</label>
+        <textarea id="orderModalNotes" placeholder="Add private notes…">${esc(o.notes || '')}</textarea>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <button class="btn-save-notes" onclick="saveOrderNotes(${o.id})">Save Notes</button>
+        <span class="notes-saved" id="orderNotesSaved">Saved</span>
+      </div>`;
+    document.getElementById('orderModal').classList.add('open');
+  }
+
+  async function saveOrderNotes(id) {
+    const notes = document.getElementById('orderModalNotes').value;
+    try {
+      const res = await apiFetch(`/api/admin/orders/${id}`, { method: 'PATCH', body: JSON.stringify({ notes }) });
+      if (res.ok) {
+        const updated = await res.json();
+        allOrders = allOrders.map(o => o.id === id ? updated : o);
+        const el = document.getElementById('orderNotesSaved');
+        el.style.display = 'inline';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      }
+    } catch {}
+  }
+
+  // ── Quotes ──
+  async function fetchQuotes() {
+    const st = document.getElementById('quoteStatusFilter').value;
+    let url = '/api/admin/bookings';
+    if (st) url += '?status=' + encodeURIComponent(st);
+    try {
+      allQuotes = await (await apiFetch(url)).json();
+      filterQuotes();
+    } catch {}
+  }
+
+  function filterQuotes() {
+    const term = document.getElementById('quoteSearch').value.toLowerCase();
+    const list = term
+      ? allQuotes.filter(b =>
+          (b.first_name + ' ' + b.last_name).toLowerCase().includes(term) ||
+          b.email.toLowerCase().includes(term))
+      : allQuotes;
+    renderQuotesTable(list);
+  }
+
+  function renderQuotesTable(quotes) {
+    const tbody = document.getElementById('quotesTableBody');
+    if (!quotes.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="table-empty">No quote requests found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = quotes.map(b => `
+      <tr id="qrow-${b.id}">
+        <td style="white-space:nowrap">${fmtDate(b.created_at)}</td>
+        <td style="white-space:nowrap">${esc(b.first_name)} ${esc(b.last_name)}</td>
+        <td style="white-space:nowrap">${esc(b.phone)}</td>
+        <td>${esc(b.email)}</td>
+        <td>${esc(b.service)}</td>
+        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(b.details||'')}">${esc(b.details || '—')}</td>
+        <td><span class="badge badge-${b.status}">${b.status}</span></td>
+        <td>
+          <div class="actions">
+            <button class="btn-view" onclick="openQuoteModal(${b.id})">View</button>
+            <select class="status-select" onchange="updateQuoteStatus(${b.id}, this.value)">
+              <option value="pending"   ${b.status==='pending'   ?'selected':''}>Pending</option>
+              <option value="confirmed" ${b.status==='confirmed' ?'selected':''}>Confirmed</option>
+              <option value="completed" ${b.status==='completed' ?'selected':''}>Completed</option>
+              <option value="cancelled" ${b.status==='cancelled' ?'selected':''}>Cancelled</option>
+            </select>
+            <button class="btn-delete" onclick="deleteQuote(${b.id})">Delete</button>
+          </div>
+        </td>
+      </tr>`).join('');
+  }
+
+  async function updateQuoteStatus(id, st) {
+    try {
+      const res = await apiFetch(`/api/admin/bookings/${id}`, { method: 'PATCH', body: JSON.stringify({ status: st }) });
+      if (res.ok) {
+        const updated = await res.json();
+        allQuotes = allQuotes.map(b => b.id === id ? updated : b);
+        filterQuotes(); fetchStats();
+      }
+    } catch {}
+  }
+
+  async function deleteQuote(id) {
+    if (!confirm('Delete this quote request? This cannot be undone.')) return;
+    try {
+      const res = await apiFetch(`/api/admin/bookings/${id}`, { method: 'DELETE' });
+      if (res.ok) { allQuotes = allQuotes.filter(b => b.id !== id); filterQuotes(); fetchStats(); }
+    } catch {}
+  }
+
+  function openQuoteModal(id) {
+    const b = allQuotes.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('quoteModalTitle').textContent = `Quote #${b.id} — ${b.first_name} ${b.last_name}`;
+    document.getElementById('quoteModalBody').innerHTML = `
+      <div class="modal-field"><span class="mf-label">Name</span><span class="mf-value">${esc(b.first_name)} ${esc(b.last_name)}</span></div>
+      <div class="modal-field"><span class="mf-label">Phone</span><span class="mf-value">${esc(b.phone)}</span></div>
+      <div class="modal-field"><span class="mf-label">Email</span><span class="mf-value">${esc(b.email)}</span></div>
+      <div class="modal-field"><span class="mf-label">Service / Model</span><span class="mf-value">${esc(b.service)}</span></div>
+      <div class="modal-field"><span class="mf-label">Details</span><span class="mf-value">${esc(b.details || '—')}</span></div>
+      <div class="modal-field"><span class="mf-label">Status</span><span class="mf-value"><span class="badge badge-${b.status}">${b.status}</span></span></div>
+      <div class="modal-field"><span class="mf-label">Submitted</span><span class="mf-value">${fmtDate(b.created_at)}</span></div>
+      <hr class="modal-divider" />
+      <div class="form-group" style="margin-bottom:.5rem;">
+        <label>Internal Notes</label>
+        <textarea id="quoteModalNotes" placeholder="Add private notes…">${esc(b.notes || '')}</textarea>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <button class="btn-save-notes" onclick="saveQuoteNotes(${b.id})">Save Notes</button>
+        <span class="notes-saved" id="quoteNotesSaved">Saved</span>
+      </div>`;
+    document.getElementById('quoteModal').classList.add('open');
+  }
+
+  async function saveQuoteNotes(id) {
+    const notes = document.getElementById('quoteModalNotes').value;
+    try {
+      const res = await apiFetch(`/api/admin/bookings/${id}`, { method: 'PATCH', body: JSON.stringify({ notes }) });
+      if (res.ok) {
+        const updated = await res.json();
+        allQuotes = allQuotes.map(b => b.id === id ? updated : b);
+        const el = document.getElementById('quoteNotesSaved');
+        el.style.display = 'inline';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      }
+    } catch {}
+  }
+
+  // ── Modals ──
+  function closeModal(id, e) {
+    if (e.target === document.getElementById(id)) closeModalDirect(id);
+  }
+  function closeModalDirect(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  // ── Auto refresh ──
+  function startAutoRefresh() {
+    clearInterval(refreshTimer);
+    resetCountdown();
+    refreshTimer = setInterval(() => {
+      refreshCountdown--;
+      document.getElementById('autoRefreshIndicator').textContent = `Auto-refresh in ${refreshCountdown}s`;
+      if (refreshCountdown <= 0) refreshAll();
+    }, 1000);
+  }
+  function resetCountdown() {
+    refreshCountdown = 60;
+    document.getElementById('autoRefreshIndicator').textContent = `Auto-refresh in 60s`;
+  }
+
+  // ── Helpers ──
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+           ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  }
+  function esc(str) {
+    if (str == null) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function parseItems(raw) {
+    try { return JSON.parse(raw) || []; } catch { return []; }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,711 @@
+{
+  "info": {
+    "name": "PowerGen — Generator Business API",
+    "_postman_id": "powergenerator-api-collection",
+    "description": "Complete test collection for the PowerGen backend.\n\n**Before running:**\n1. Start the server: `uvicorn backend.main:app --reload`\n2. The `baseUrl` variable is set to `http://localhost:8000`\n3. Admin routes use HTTP Basic Auth (admin / changeme123)\n4. Run the **Submit Booking** request first — it auto-saves the booking ID for all admin requests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "bookingId",
+      "value": "1",
+      "type": "string",
+      "description": "Auto-filled by the Submit Booking request"
+    },
+    {
+      "key": "adminUser",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "adminPass",
+      "value": "changeme123",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🌐 Frontend Pages",
+      "item": [
+        {
+          "name": "GET  /  — Public Website",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/",
+            "description": "Serves frontend/index.html. Expected: 200 OK + HTML content."
+          }
+        },
+        {
+          "name": "GET  /admin  — Admin Panel",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin",
+            "description": "Serves frontend/admin.html. Expected: 200 OK + HTML content."
+          }
+        },
+        {
+          "name": "GET  /docs  — Swagger UI",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/docs",
+            "description": "FastAPI auto-generated interactive docs. Open this in a browser for a full clickable API explorer."
+          }
+        }
+      ]
+    },
+    {
+      "name": "📋 Bookings (Public)",
+      "item": [
+        {
+          "name": "POST /api/bookings/  — Submit Booking (Full)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const json = pm.response.json();",
+                  "    pm.collectionVariables.set('bookingId', json.id);",
+                  "    console.log('Saved bookingId:', json.id);",
+                  "    pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "    pm.test('Returns booking ID', () => pm.expect(json.id).to.be.a('number'));",
+                  "    pm.test('Returns success message', () => pm.expect(json.message).to.include('successfully'));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bookings/",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Smith\",\n  \"phone\": \"+1 555 123 4567\",\n  \"email\": \"jane.smith@example.com\",\n  \"service\": \"Generator Installation\",\n  \"preferred_date\": \"2026-05-15\",\n  \"generator_size\": \"30kW\",\n  \"details\": \"New residential build, need a full standby installation with transfer switch.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Submit a full booking request.\n\n✅ Expected: 201 Created\n```json\n{ \"message\": \"Booking received successfully\", \"id\": 1 }\n```\n\nThe `bookingId` collection variable is auto-set from the response — all admin requests below will use it."
+          }
+        },
+        {
+          "name": "POST /api/bookings/  — Submit Booking (Minimal)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bookings/",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Bob\",\n  \"last_name\": \"Jones\",\n  \"phone\": \"555-000-1111\",\n  \"email\": \"bob@example.com\",\n  \"service\": \"Emergency Callout\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Only the 5 required fields — optional fields omitted.\n\n✅ Expected: 201 Created"
+          }
+        },
+        {
+          "name": "POST /api/bookings/  — ❌ Validation Error (422)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Returns field errors', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.detail).to.be.an('array').and.not.empty;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bookings/",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Incomplete\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Missing required fields: last_name, phone, email, service.\n\n❌ Expected: 422 Unprocessable Entity — FastAPI returns a detail array listing every missing field."
+          }
+        },
+        {
+          "name": "POST /api/bookings/  — ❌ Bad Email (422)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bookings/",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Bad\",\n  \"last_name\": \"Email\",\n  \"phone\": \"555-000-0000\",\n  \"email\": \"not-an-email\",\n  \"service\": \"Rentals\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Email field fails Pydantic EmailStr validation.\n\n❌ Expected: 422 Unprocessable Entity"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔐 Admin — Stats",
+      "item": [
+        {
+          "name": "GET /api/admin/stats  — Summary Counts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has all stat fields', () => {",
+                  "    const j = pm.response.json();",
+                  "    pm.expect(j).to.have.all.keys('total','pending','confirmed','completed','cancelled','this_month');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/stats",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Returns booking counts by status + this month total.\n\n✅ Expected: 200 OK\n```json\n{\n  \"total\": 5,\n  \"pending\": 3,\n  \"confirmed\": 1,\n  \"completed\": 1,\n  \"cancelled\": 0,\n  \"this_month\": 5\n}\n```"
+          }
+        },
+        {
+          "name": "GET /api/admin/stats  — ❌ No Credentials (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/stats",
+            "auth": { "type": "noauth" },
+            "description": "No Authorization header sent.\n\n❌ Expected: 401 Unauthorized"
+          }
+        },
+        {
+          "name": "GET /api/admin/stats  — ❌ Wrong Password (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/stats",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "wrongpassword" }
+              ]
+            },
+            "description": "Correct username, wrong password.\n\n❌ Expected: 401 Unauthorized"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔐 Admin — List & Filter Bookings",
+      "item": [
+        {
+          "name": "GET /api/admin/bookings  — All Bookings",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Returns an array', () => pm.expect(pm.response.json()).to.be.an('array'));",
+                  "pm.test('Ordered newest first', () => {",
+                  "    const d = pm.response.json();",
+                  "    if (d.length > 1) {",
+                  "        pm.expect(new Date(d[0].created_at) >= new Date(d[1].created_at)).to.be.true;",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/bookings",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Returns all bookings ordered by created_at descending (newest first).\n\n✅ Expected: 200 OK — array of BookingOut objects"
+          }
+        },
+        {
+          "name": "GET /api/admin/bookings?status=pending  — Filter by Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/bookings?status=pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "bookings"],
+              "query": [
+                { "key": "status", "value": "pending", "description": "Options: pending | confirmed | completed | cancelled" }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Filter bookings by status.\n\nTry changing `pending` to: `confirmed`, `completed`, `cancelled`\n\n✅ Expected: 200 OK — only bookings matching that status"
+          }
+        },
+        {
+          "name": "GET /api/admin/bookings?search=jane  — Search by Name/Email",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/bookings?search=jane",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "bookings"],
+              "query": [
+                { "key": "search", "value": "jane", "description": "Case-insensitive. Matches first_name, last_name, or email" }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Case-insensitive search across first_name, last_name, and email.\n\n✅ Expected: 200 OK — filtered results"
+          }
+        },
+        {
+          "name": "GET /api/admin/bookings?status=confirmed&search=jane  — Combined Filter",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/bookings?status=confirmed&search=jane",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "bookings"],
+              "query": [
+                { "key": "status", "value": "confirmed" },
+                { "key": "search", "value": "jane" }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Status filter + search combined.\n\n✅ Expected: 200 OK — results matching both filters"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔐 Admin — Single Booking (CRUD)",
+      "item": [
+        {
+          "name": "GET /api/admin/bookings/:id  — Get Single Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has expected fields', () => {",
+                  "    const j = pm.response.json();",
+                  "    pm.expect(j).to.have.all.keys('id','first_name','last_name','phone','email','service','preferred_date','generator_size','details','status','created_at','notes');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Fetch a single booking by ID. Uses the `bookingId` variable set by the Submit Booking request.\n\n✅ Expected: 200 OK — full BookingOut object"
+          }
+        },
+        {
+          "name": "GET /api/admin/bookings/999999  — ❌ Not Found (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Error detail present', () => pm.expect(pm.response.json().detail).to.equal('Booking not found'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/bookings/999999",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Non-existent booking ID.\n\n❌ Expected: 404 Not Found\n```json\n{ \"detail\": \"Booking not found\" }\n```"
+          }
+        },
+        {
+          "name": "PATCH /api/admin/bookings/:id  — Update Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Status updated to confirmed', () => {",
+                  "    pm.expect(pm.response.json().status).to.equal('confirmed');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Update the status only. You can send any combination of `status` and `notes` — both are optional.\n\nValid status values: `pending` | `confirmed` | `completed` | `cancelled`\n\n✅ Expected: 200 OK — updated BookingOut"
+          }
+        },
+        {
+          "name": "PATCH /api/admin/bookings/:id  — Update Notes",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Spoke to customer. Confirmed for May 15 at 9am. Will need 3-phase connection.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Update internal notes only — status is not touched.\n\n✅ Expected: 200 OK — notes field updated, status unchanged"
+          }
+        },
+        {
+          "name": "PATCH /api/admin/bookings/:id  — Update Status + Notes",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"notes\": \"Job completed successfully. Invoice sent.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Update both status and notes in one request.\n\n✅ Expected: 200 OK"
+          }
+        },
+        {
+          "name": "DELETE /api/admin/bookings/:id  — Delete Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Returns deleted message', () => {",
+                  "    pm.expect(pm.response.json().message).to.equal('Booking deleted');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "⚠️ Hard deletes the booking — cannot be undone.\n\n✅ Expected: 200 OK\n```json\n{ \"message\": \"Booking deleted\" }\n```\n\nAfter running this, the GET single booking request will return 404."
+          }
+        },
+        {
+          "name": "DELETE /api/admin/bookings/:id  — ❌ Already Deleted (404)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Run this immediately after the Delete request above.\n\n❌ Expected: 404 Not Found"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔁 Full Workflow (Run in Order)",
+      "item": [
+        {
+          "name": "1 — Submit New Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "const id = pm.response.json().id;",
+                  "pm.collectionVariables.set('bookingId', id);",
+                  "console.log('bookingId set to', id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/bookings/",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Workflow\",\n  \"last_name\": \"Test\",\n  \"phone\": \"+1 555 999 0000\",\n  \"email\": \"workflow@test.com\",\n  \"service\": \"Maintenance Contract\",\n  \"preferred_date\": \"2026-06-01\",\n  \"generator_size\": \"50kW\",\n  \"details\": \"Annual maintenance contract for warehouse generator.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Step 1: Creates a booking and saves the ID."
+          }
+        },
+        {
+          "name": "2 — Verify in Admin List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "const id = parseInt(pm.collectionVariables.get('bookingId'));",
+                  "const found = pm.response.json().some(b => b.id === id);",
+                  "pm.test('New booking appears in list', () => pm.expect(found).to.be.true);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/bookings",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Step 2: Verify the new booking appears in the admin list."
+          }
+        },
+        {
+          "name": "3 — Confirm the Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Status is now confirmed', () => pm.expect(pm.response.json().status).to.equal('confirmed'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\",\n  \"notes\": \"Confirmed via phone call. Customer available any morning.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Step 3: Mark booking as confirmed with notes."
+          }
+        },
+        {
+          "name": "4 — Complete the Booking",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"notes\": \"Job done. Invoice #1042 sent. Customer satisfied.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Step 4: Mark booking as completed."
+          }
+        },
+        {
+          "name": "5 — Check Updated Stats",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "console.log('Stats:', JSON.stringify(j));",
+                  "pm.test('Completed count > 0', () => pm.expect(j.completed).to.be.above(0));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/stats",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Step 5: Confirm stats reflect the completed booking."
+          }
+        },
+        {
+          "name": "6 — Delete the Test Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Deleted', () => pm.expect(pm.response.json().message).to.equal('Booking deleted'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/bookings/{{bookingId}}",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "description": "Step 6: Clean up — delete the test booking."
+          }
+        }
+      ]
+    }
+  ]
+}
