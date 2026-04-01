@@ -588,8 +588,8 @@ const PRODUCTS = [
     originalPrice: 3600,
     description: "The Cat DE33GC combines market-leading fuel efficiency with the reliability of Cat's global support network. Trusted by business continuity professionals.",
     features: ["EMCP 4.2 controller with data logging", "Anti-condensation heater standard", "Modular acoustic enclosure", "24-hour base fuel tank"],
-    inStock: false,
-    badge: null,
+    inStock: true,
+    badge: "New",
     image: "https://tse4.mm.bing.net/th/id/OIP.y7q4FmK2aX-fZpw02c4zlwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Caterpillar DE33GC commercial generator"
   },
@@ -805,8 +805,8 @@ const PRODUCTS = [
     originalPrice: 7400,
     description: "John Deere's 300kW industrial diesel is built for data centres, healthcare facilities, and mission-critical infrastructure where power failure is not an option.",
     features: ["Data centre power quality compliance", "Integrated paralleling switchgear", "Healthcare-grade transient response", "2,000-hour service interval"],
-    inStock: false,
-    badge: null,
+    inStock: true,
+    badge: "New",
     image: "https://static.wixstatic.com/media/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg/v1/fill/w_1055,h_827,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg",
     imageSearch: "John Deere 300kW industrial diesel generator"
   },
@@ -952,8 +952,8 @@ const PRODUCTS = [
     originalPrice: 6400,
     description: "200kW Perkins-powered industrial generator — high transient performance and proven reliability for manufacturing plants, pumping stations, and utilities.",
     features: ["Perkins 2206 Series engine", "High transient load acceptance", "DSE 7320 MKII digital controller", "Anti-vibration isolation mounts"],
-    inStock: false,
-    badge: null,
+    inStock: true,
+    badge: "New",
     image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Perkins 200kW industrial diesel generator"
   },
@@ -1274,8 +1274,8 @@ const PRODUCTS = [
     originalPrice: 999,
     description: "Yamaha's premium 2,400W inverter with an oil-change free design and market-leading 11.5-hour runtime at quarter load — ideal for extended camping trips.",
     features: ["11.5 hrs runtime at 25% load", "Carbon monoxide shut-off (CO sensor)", "Large fuel capacity — 1.6 gallons", "3-year Yamaha warranty"],
-    inStock: false,
-    badge: null,
+    inStock: true,
+    badge: "New",
     image: "https://tse2.mm.bing.net/th/id/OIP.0Xq2jNdYMy5c-ZRBfmEk7AHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Yamaha EF2400iSHC inverter generator"
   },
