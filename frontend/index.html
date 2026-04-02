@@ -1840,16 +1840,20 @@
     return sub >= 2500 ? 0 : 150;
   }
 
-  function showToast(msg) {
+  function showToast(msg, showViewCart = false) {
     const c = document.getElementById('toastContainer');
     const t = document.createElement('div');
     t.className = 'toast';
-    t.textContent = msg;
+    t.style.display = 'flex';
+    t.style.alignItems = 'center';
+    t.style.justifyContent = 'space-between';
+    t.style.gap = '.75rem';
+    t.innerHTML = `<span>${msg}</span>${showViewCart ? `<button onclick="show('cart')" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;">View Cart</button>` : ''}`;
     c.appendChild(t);
     setTimeout(() => {
       t.classList.add('fade-out');
       setTimeout(() => t.remove(), 350);
-    }, 2000);
+    }, 3000);
   }
 
   function addToCart(id) {
@@ -1863,7 +1867,7 @@
     renderCart();
     renderCartPage();
     saveCart();
-    showToast(`✓ Added to cart: ${p.name}`);
+    showToast(`✓ ${p.name} added to cart`, true);
     const badge = document.getElementById('cartBadge');
     badge.style.transform = 'scale(1.4)';
     setTimeout(() => badge.style.transform = '', 200);
