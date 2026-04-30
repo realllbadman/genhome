@@ -773,7 +773,7 @@
     .btn-modal-cart:hover { background: #b07608; }
 
     /* ── Toast notifications ────────────────────────────── */
-    #toastContainer { position:fixed; bottom:1.5rem; right:1.5rem; z-index:9999; display:flex; flex-direction:column; gap:.5rem; pointer-events:none; }
+    #toastContainer { position:fixed; bottom:1.5rem; left:1.5rem; z-index:9999; display:flex; flex-direction:column; gap:.5rem; pointer-events:none; max-width:340px; }
     .toast {
       background: #fff; border-left: 4px solid var(--accent); border-radius: 8px;
       padding: .7rem 1.1rem; font-size: .88rem; font-weight: 600; color: var(--dark);
@@ -1433,6 +1433,41 @@
                 </select>
               </div>
             </div>
+            <!-- International Shipping -->
+            <div style="border:1.5px solid #e0dbd4;border-radius:10px;padding:1.25rem;background:#fafaf8;margin-bottom:1rem;">
+              <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem;">
+                <label style="display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.92rem;cursor:pointer;">
+                  <input type="checkbox" id="intlShipping" onchange="toggleIntlShipping(this)" style="width:16px;height:16px;accent-color:var(--accent);">
+                  Shipping outside the United States
+                </label>
+              </div>
+              <div id="intlShippingFields" style="display:none;">
+                <div class="cp-form-group" style="margin-bottom:.75rem;">
+                  <label>Country / Region *</label>
+                  <input type="text" id="oCountry" placeholder="e.g. Jamaica, Nigeria, United Kingdom…" />
+                </div>
+                <div class="cp-form-group" style="margin-bottom:.75rem;">
+                  <label>Freight Region *</label>
+                  <select id="oFreightRegion" onchange="updateIntlShipping(this.value)">
+                    <option value="">Select your region…</option>
+                    <option value="600">Canada / Mexico — $600</option>
+                    <option value="700">Caribbean / Central America — $700</option>
+                    <option value="800">South America — $800</option>
+                    <option value="950">Europe — $950</option>
+                    <option value="900">Middle East / North Africa — $900</option>
+                    <option value="1000">Sub-Saharan Africa — $1,000</option>
+                    <option value="1100">Asia Pacific — $1,100</option>
+                    <option value="1200">Australia / New Zealand — $1,200</option>
+                    <option value="1300">Other / Remote Region — $1,300</option>
+                  </select>
+                </div>
+                <div style="background:#1a1a1a;color:#fff;border-radius:8px;padding:.85rem 1rem;font-size:.82rem;line-height:1.6;">
+                  <strong style="color:var(--accent);">Important Notice — International Freight</strong><br>
+                  All shipments destined outside the United States are subject to mandatory international freight charges. Quoted freight rates are estimates and may vary based on final destination, cargo dimensions, and applicable customs duties or port fees. A formal freight invoice will be provided upon order confirmation. The buyer is responsible for all import duties, taxes, and customs clearance costs at the destination country.
+                </div>
+              </div>
+            </div>
+
             <div class="cp-form-group"><label>Additional Notes <em style="font-weight:400;color:var(--muted)">(optional)</em></label><textarea id="oNotes" rows="3" placeholder="Installation requirements, site access, special requests…"></textarea></div>
             <button type="submit" class="btn-place-order" id="placeOrderBtn">Place Order →</button>
             <div class="cp-order-error" id="orderError"></div>
@@ -1915,8 +1950,26 @@
   }
 
   function getShipping() {
+    const intl = document.getElementById('intlShipping');
+    if (intl && intl.checked) {
+      const region = document.getElementById('oFreightRegion');
+      return region ? (parseInt(region.value) || 0) : 0;
+    }
     const sub = getCartTotal();
     return sub >= 2500 ? 0 : 300;
+  }
+
+  function toggleIntlShipping(cb) {
+    document.getElementById('intlShippingFields').style.display = cb.checked ? 'block' : 'none';
+    const stateField = document.getElementById('oState');
+    const zipField   = document.getElementById('oZip');
+    if (stateField) stateField.required = !cb.checked;
+    if (zipField)   zipField.required   = !cb.checked;
+    renderOrderSummary();
+  }
+
+  function updateIntlShipping(val) {
+    renderOrderSummary();
   }
 
   function showToast(msg, showViewCart = false) {
@@ -2175,6 +2228,8 @@
         city:       document.getElementById('oCity').value.trim(),
         state:      document.getElementById('oState').value.trim(),
         zip:        document.getElementById('oZip').value.trim(),
+        country:    (document.getElementById('intlShipping')?.checked ? (document.getElementById('oCountry')?.value.trim() || '') : 'USA'),
+        freight_region: (document.getElementById('oFreightRegion')?.options[document.getElementById('oFreightRegion')?.selectedIndex]?.text || ''),
         contact_pref:     document.getElementById('oContact').value,
         best_time:        document.getElementById('oTime').value,
         notes:            document.getElementById('oNotes').value.trim(),
