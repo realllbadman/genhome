@@ -1348,7 +1348,7 @@ const PRODUCTS = [
     features: ["Perkins 1103A engine", "Deep-sea DSE4520 controller", "24V electric start", "Anti-vibration mounted base frame"],
     inStock: true,
     badge: "New",
-    image: "https://static.wixstatic.com/media/a10320_6a6be591777348eba420bffe90de1bcd~mv2.png/v1/fill/w_859,h_827,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_6a6be591777348eba420bffe90de1bcd~mv2.png",
+    image: "https://th.bing.com/th/id/OIP.4Zk67TkWWcXP8OZsStD9cgHaHa?w=173&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3/",
     imageSearch: "Perkins 30kW diesel generator commercial"
   },
   {
@@ -1364,7 +1364,7 @@ const PRODUCTS = [
     features: ["Perkins 1104A turbo engine", "DSE7320 MKII digital controller", "Sound-attenuated canopy", "72-hour base fuel tank"],
     inStock: true,
     badge: "New",
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/R.d788b2e90594da7f5c2e4c2e14166ca4?rik=iH5JGt2ySuCjmQ&riu=http%3a%2f%2fmasterpower.ae%2fcdn%2fshop%2ffiles%2fGenerator04051_540x_dfd2fd28-bfba-4a7f-9461-279b3f618a4d.png%3fv%3d1746470887&ehk=5ziFQN3lz8j4UZwv%2fPZ7y01HiNe3RN8h04CKBYg8%2bus%3d&risl=&pid=ImgRaw&r=0",
     imageSearch: "Perkins 50kW diesel generator"
   },
   {
@@ -1380,7 +1380,7 @@ const PRODUCTS = [
     features: ["Perkins 1104D engine", "Automatic mains failure (AMF)", "Heavy-duty weather canopy", "Anti-condensation heater"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse1.mm.bing.net/th/id/OIP.BS37iA_sSKxAEo3oO81q-QHaFT?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Perkins 60kW diesel generator"
   },
   {
@@ -1396,7 +1396,7 @@ const PRODUCTS = [
     features: ["Perkins 1104D turbo engine", "Stamford alternator", "DSE controller with SCADA readiness", "2-year engine warranty"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse4.mm.bing.net/th/id/OIP.SXll19JMrrfITbUTpGjQcgHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Perkins 75kW diesel standby generator"
   },
   {
@@ -1412,7 +1412,7 @@ const PRODUCTS = [
     features: ["Perkins 1206 Series engine", "Leroy-Somer alternator", "Paralleling capability", "1,000-hour service interval"],
     inStock: true,
     badge: "New",
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/R.47ec7209c1fa5ac5dcd20b1113984f12?rik=AMtpMcIZkRM%2fHQ&pid=ImgRaw&r=0",
     imageSearch: "Perkins 125kW industrial diesel generator"
   },
   {
@@ -1428,7 +1428,7 @@ const PRODUCTS = [
     features: ["Perkins 1206E engine", "IP23 weather protection", "Remote monitoring module", "Factory load tested"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.OXvKc5mffPjU7WLDX16olgHaFj?w=222&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Perkins 150kW industrial diesel generator"
   },
 
@@ -1446,7 +1446,7 @@ const PRODUCTS = [
     features: ["Generac OHVI diesel engine", "Evolution controller", "Steel enclosure with powder coat", "Automatic weekly self-test"],
     inStock: true,
     badge: "New",
-    image: "https://www.generac.com/globalassets/products/generators/commercial/diesel/protector-diesel/generac-protector-diesel-generator.jpg",
+    image: "https://tse4.mm.bing.net/th/id/OIP.xYX29W1U9G2Ciz_zMXXMnQHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Generac 30kW diesel commercial generator"
   },
   {
@@ -1462,7 +1462,7 @@ const PRODUCTS = [
     features: ["Turbocharged diesel engine", "Digital voltage regulation", "Sound-attenuated housing", "Mobile Link Wi-Fi monitoring"],
     inStock: true,
     badge: null,
-    image: "https://www.generac.com/globalassets/products/generators/commercial/diesel/protector-diesel/generac-protector-diesel-generator.jpg",
+    image: "https://diesel-powered.com/wp-content/uploads/2024/05/IE50-240-GN-1-768x576.jpg",
     imageSearch: "Generac 50kW diesel generator protector"
   },
   {
@@ -1478,7 +1478,7 @@ const PRODUCTS = [
     features: ["Turbo intercooled diesel", "NFPA 110 compliant", "Integrated ATS capability", "2-year limited warranty"],
     inStock: true,
     badge: null,
-    image: "https://www.generac.com/globalassets/products/generators/commercial/diesel/protector-diesel/generac-protector-diesel-generator.jpg",
+    image: "https://th.bing.com/th/id/R.d85b422e06f2e5a5cfec182f317b6a8c?rik=IhnbCEgaPpXpwQ&pid=ImgRaw&r=0",
     imageSearch: "Generac 70kW diesel generator"
   },
   {
@@ -1494,7 +1494,7 @@ const PRODUCTS = [
     features: ["Industrial-grade diesel engine", "PowerCommand controller", "Paralleling bus ready", "Remote diagnostics capable"],
     inStock: true,
     badge: null,
-    image: "https://www.generac.com/globalassets/products/generators/commercial/diesel/protector-diesel/generac-protector-diesel-generator.jpg",
+    image: "https://tse1.mm.bing.net/th/id/OIP.XAum3Hh0RR1F0jO2BX5MugHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Generac 100kW industrial diesel generator"
   },
 
@@ -1512,7 +1512,7 @@ const PRODUCTS = [
     features: ["Kohler KD diesel engine", "Decision-Maker 3500 controller", "Integral fuel tank", "5-year/2,000-hour warranty"],
     inStock: true,
     badge: "New",
-    image: "https://tse2.mm.bing.net/th/id/OIP.U2gph_EBmnYwuYlvWRZO5gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse2.mm.bing.net/th/id/OIP.RfRqZu26d3_-U9GR234aEgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Kohler 30kW diesel generator commercial"
   },
   {
@@ -1528,7 +1528,7 @@ const PRODUCTS = [
     features: ["Kohler KD2-Series engine", "Industrial acoustic enclosure", "Remote monitoring ready", "Low fuel consumption rating"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.U2gph_EBmnYwuYlvWRZO5gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse3.mm.bing.net/th/id/OIP.XMP8I3hSbgMf4ssDbY919QHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Kohler 45kW diesel generator"
   },
   {
@@ -1544,7 +1544,7 @@ const PRODUCTS = [
     features: ["Turbo diesel engine", "PowerBoost technology", "IP44 enclosure rating", "Integrated load management"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.U2gph_EBmnYwuYlvWRZO5gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.Q6tJ6lzfXKrh-Bt2oBz4agHaE6?w=289&h=191&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Kohler 60kW diesel generator"
   },
   {
@@ -1560,7 +1560,7 @@ const PRODUCTS = [
     features: ["Kohler KD11 engine", "Decision-Maker 6000 controller", "NFPA 110 Level 1 compliance", "N+1 paralleling standard"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.U2gph_EBmnYwuYlvWRZO5gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://s7d9.scene7.com/is/image/discoveryenergy/aab84386_rgb",
     imageSearch: "Kohler 100kW industrial diesel generator"
   },
 
@@ -1578,7 +1578,7 @@ const PRODUCTS = [
     features: ["Cat C4.4 engine", "EMCP 4.2 digital controller", "Sound-attenuated enclosure", "Extended 500-hour oil service"],
     inStock: true,
     badge: "New",
-    image: "https://tse4.mm.bing.net/th/id/OIP.y7q4FmK2aX-fZpw02c4zlwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://s7d2.scene7.com/is/image/Caterpillar/CM20200310-79014-11327",
     imageSearch: "Caterpillar 75kW diesel generator DE75GC"
   },
   {
@@ -1594,7 +1594,7 @@ const PRODUCTS = [
     features: ["Cat C9.3B engine", "EMCP 4.4 with load sharing", "Tier 4 Final certified", "Drop-in replacement design"],
     inStock: true,
     badge: null,
-    image: "https://tse4.mm.bing.net/th/id/OIP.y7q4FmK2aX-fZpw02c4zlwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://cdn.shopify.com/s/files/1/0530/5873/2185/products/2305_-_200kVA_Caterpillar_Caterpillar_Leroy_Somer_Canopied_7_20230104_125654_1024x.JPG?v=1672837082",
     imageSearch: "Caterpillar 200kW industrial diesel generator"
   },
   {
@@ -1608,9 +1608,9 @@ const PRODUCTS = [
     originalPrice: 9600,
     description: "Cat DE250GC — 250kW of premium industrial diesel power with Cat's world-class EMCP controller and unmatched global support network.",
     features: ["Cat C13 ACERT engine", "EMCP 4.4 paralleling controller", "Seismic zone 4 certified", "24-hour belly tank standard"],
-    inStock: false,
+    inStock: true,
     badge: null,
-    image: "https://tse4.mm.bing.net/th/id/OIP.y7q4FmK2aX-fZpw02c4zlwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://cdn.shopify.com/s/files/1/0530/5873/2185/products/2305_-_200kVA_Caterpillar_Caterpillar_Leroy_Somer_Canopied_7_20230104_125654_1024x.JPG?v=1672837082",
     imageSearch: "Caterpillar 250kW industrial diesel generator"
   },
 
@@ -1628,7 +1628,7 @@ const PRODUCTS = [
     features: ["Yanmar L-Series diesel engine", "Electric start", "Compact and portable design", "Low noise operation"],
     inStock: true,
     badge: null,
-    image: "https://wholesale-generators.com/wp-content/uploads/2025/09/15kW-Yanmar.jpg",
+    image: "https://th.bing.com/th/id/OIP.Fpi8P2_D82yAjq6w3msfsQHaGr?w=193&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Yanmar 5kW small diesel generator"
   },
   {
@@ -1644,7 +1644,7 @@ const PRODUCTS = [
     features: ["Direct injection diesel engine", "12V electric start", "Steel fuel tank with gauge", "Hour meter included"],
     inStock: true,
     badge: null,
-    image: "https://wholesale-generators.com/wp-content/uploads/2025/09/15kW-Yanmar.jpg",
+    image: "https://th.bing.com/th/id/OIP.wG4KdUudMtOOY6y9it59CwHaHa?w=217&h=217&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Yanmar 8kW diesel generator"
   },
   {
@@ -1660,7 +1660,7 @@ const PRODUCTS = [
     features: ["Yanmar 3TNV engine", "Auto voltage regulator", "Circuit breaker protection", "Easy access service panel"],
     inStock: true,
     badge: "Best Seller",
-    image: "https://wholesale-generators.com/wp-content/uploads/2025/09/15kW-Yanmar.jpg",
+    image: "https://th.bing.com/th/id/OIP.NMgT43Y1Rb4j9UnXcbWJ0QHaFj?w=249&h=186&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Yanmar 10kW diesel generator"
   },
   {
@@ -1676,7 +1676,7 @@ const PRODUCTS = [
     features: ["Perkins 403D engine", "12V electric start", "Compact steel frame", "Low-oil shutdown protection"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.WaSUTsefnlynKi3UpqrQqgHaGQ?w=196&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Perkins 8kW small diesel generator"
   },
   {
@@ -1692,7 +1692,7 @@ const PRODUCTS = [
     features: ["Perkins 404D engine", "DSE4520 controller", "Electric start with key", "12-month parts warranty"],
     inStock: true,
     badge: "New",
-    image: "https://tse2.mm.bing.net/th/id/OIP.fZA8gbyTQ5BRN2MFVewHEAHaFZ?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.M7GOO9Cm3r1tPIAJVkNlxgHaHa?w=165&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Perkins 15kW diesel generator"
   },
 
@@ -1710,7 +1710,7 @@ const PRODUCTS = [
     features: ["Runs on natural gas OR propane", "Wi-Fi Mobile Link included", "Automatic 10-second transfer", "True Power Technology"],
     inStock: true,
     badge: "Best Seller",
-    image: "https://www.generac.com/globalassets/products/residential/standby-generators/gaseous/g0072090--24kw/7209-pdp-images-1.jpg",
+    image: "https://th.bing.com/th/id/R.8ddf3b1317125b7d1c85a7311c612f63?rik=WOvWg8WcOH4RDA&pid=ImgRaw&r=0",
     imageSearch: "Generac Guardian 22kW dual fuel home standby"
   },
   {
@@ -1726,7 +1726,7 @@ const PRODUCTS = [
     features: ["Runs on gasoline or propane", "Electric start with remote key fob", "Fold-down handle and never-flat wheels", "Dual fuel switch on the fly"],
     inStock: true,
     badge: null,
-    image: "https://th.bing.com/th/id/R.ed08157b347ca8039a9f0870c4a4e85c?rik=G8XUCicCCWixkg&pid=ImgRaw&r=0",
+    image: "https://th.bing.com/th/id/OIP.vVh4cWo7vSHigiLuWLoFxQHaD4?w=343&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Champion 15kW dual fuel portable generator"
   },
   {
@@ -1742,7 +1742,7 @@ const PRODUCTS = [
     features: ["20kW peak / 16kW running", "Electric start", "Dual fuel on-the-fly switching", "Heavy-duty steel frame with wheels"],
     inStock: true,
     badge: "New",
-    image: "https://tse1.mm.bing.net/th/id/OIP.-D0i_KfB5I3_Clnl9Qq3NgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.LKoPFkL4UU63Ayi72e7f0gHaHa?w=193&h=193&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "DuroMax XP20000EH dual fuel generator"
   },
   {
@@ -1758,7 +1758,7 @@ const PRODUCTS = [
     features: ["Auto fuel switching NG/LP", "5-year / 2,000-hour warranty", "CorePower technology", "Quiet 68 dB operation"],
     inStock: true,
     badge: null,
-    image: "https://tse2.mm.bing.net/th/id/OIP.U2gph_EBmnYwuYlvWRZO5gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.sja5IWpyoTI76fWfTFlHNQHaHa?w=182&h=182&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Kohler 20kW dual fuel home standby generator"
   },
   {
@@ -1774,7 +1774,7 @@ const PRODUCTS = [
     features: ["Gas or propane operation", "Remote start key fob", "Transfer switch ready outlet", "Dual fuel gauge display"],
     inStock: true,
     badge: null,
-    image: "https://tse3.mm.bing.net/th/id/OIP.HLiRMTCgboaiWPuVDWbYKAHaD4?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.UEpZV8JDxDWoVnRPsS9NkwHaHA?w=177&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Westinghouse WGen15000DF dual fuel generator"
   },
 
@@ -1792,7 +1792,7 @@ const PRODUCTS = [
     features: ["Cummins QSX15 engine", "PowerCommand 3.3 controller", "Tier 4 Final compliant", "N+1 paralleling standard"],
     inStock: false,
     badge: null,
-    image: "https://tse4.mm.bing.net/th/id/OIP.vqDDezHQus_Db8pSgLvIkwHaFS?w=560&h=400&rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://th.bing.com/th/id/OIP.iMcnHtGRith0R7cG1Wxs5AHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Cummins 400kW industrial diesel generator"
   },
   {
@@ -1808,7 +1808,7 @@ const PRODUCTS = [
     features: ["Cummins QSX15 turbocharged", "Integrated paralleling switchgear", "Remote monitoring via InPower", "2,000-hour oil change interval"],
     inStock: false,
     badge: null,
-    image: "https://tse4.mm.bing.net/th/id/OIP.vqDDezHQus_Db8pSgLvIkwHaFS?w=560&h=400&rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse3.mm.bing.net/th/id/OIP.f0_wnGeK1naOWw9JO4Q_EwHaFk?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Cummins 450kW industrial diesel generator"
   },
   {
@@ -1824,7 +1824,7 @@ const PRODUCTS = [
     features: ["Cummins QSK19 V8 engine", "30-year design life", "Integrated PowerCommand paralleling", "IEC 60034 Class H insulation"],
     inStock: false,
     badge: null,
-    image: "https://tse4.mm.bing.net/th/id/OIP.vqDDezHQus_Db8pSgLvIkwHaFS?w=560&h=400&rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://tse3.mm.bing.net/th/id/OIP.YpNFg86g1UWq6GsXFHRyMQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "Cummins 500kW industrial diesel generator"
   },
 
@@ -1842,7 +1842,7 @@ const PRODUCTS = [
     features: ["MTU Series 1600 engine", "Integrated PowerCommand controller", "Anti-condensation heater", "Factory load test certificate"],
     inStock: true,
     badge: "New",
-    image: "https://5.imimg.com/data5/SELLER/Default/2023/2/CZ/MG/SL/656503/force-mtu-diesel-generator-500x500.png",
+    image: "https://th.bing.com/th/id/OIP.VcEz5gRPtPH5z-AE1nmpMAHaE8?w=255&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "MTU 200kW industrial diesel generator"
   },
   {
@@ -1856,9 +1856,9 @@ const PRODUCTS = [
     originalPrice: 9200,
     description: "MTU 300kW industrial diesel — advanced combustion technology, low emissions, and exceptional transient load response for data centres and industrial plants.",
     features: ["MTU Series 1600 turbo engine", "SCADA integration ready", "IP54 weatherproof switchgear", "Predictive maintenance system"],
-    inStock: false,
+    inStock: true,
     badge: null,
-    image: "https://5.imimg.com/data5/SELLER/Default/2023/2/CZ/MG/SL/656503/force-mtu-diesel-generator-500x500.png",
+    image: "https://tse1.mm.bing.net/th/id/OIP._9dDAi3mMK769WTA7ucdYQHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3",
     imageSearch: "MTU 300kW industrial diesel generator"
   },
   {
@@ -1868,13 +1868,13 @@ const PRODUCTS = [
     category: "industrial",
     kw: 400,
     fuel: "Diesel",
-    price: 9000,
-    originalPrice: 10200,
+    price: 15000,
+    originalPrice: 20200,
     description: "MTU 400kW — top-tier industrial diesel generator for the most demanding applications. MTU's Series 2000 engine platform is trusted by defence and utilities worldwide.",
     features: ["MTU Series 2000 V8 engine", "Integrated PowerCommand paralleling", "IEC 60034 Class H insulation", "Megawatt-scale paralleling bus"],
-    inStock: false,
+    inStock: true,
     badge: null,
-    image: "https://5.imimg.com/data5/SELLER/Default/2023/2/CZ/MG/SL/656503/force-mtu-diesel-generator-500x500.png",
+    image: "https://th.bing.com/th/id/OIP.2vN_x08_SVARTGyRdFDDFAHaHa?w=189&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "MTU 400kW industrial diesel generator"
   },
 
@@ -1892,7 +1892,7 @@ const PRODUCTS = [
     features: ["John Deere 4045 engine", "DSE7320 controller", "Sound-attenuated canopy", "Global parts availability"],
     inStock: true,
     badge: "New",
-    image: "https://static.wixstatic.com/media/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg/v1/fill/w_1055,h_827,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg",
+    image: "https://static.wixstatic.com/media/a10320_b4c508ca4087412e93e84e3e74466cfa~mv2.png/v1/fill/w_749,h_572,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_b4c508ca4087412e93e84e3e74466cfa~mv2.png",
     imageSearch: "John Deere 60kW diesel commercial generator"
   },
   {
@@ -1908,7 +1908,7 @@ const PRODUCTS = [
     features: ["John Deere 4045T turbo engine", "Automatic mains failure", "Integrated 8-hour fuel tank", "Tier 4 Final certified"],
     inStock: true,
     badge: null,
-    image: "https://static.wixstatic.com/media/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg/v1/fill/w_1055,h_827,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg",
+    image: "https://static.wixstatic.com/media/a10320_16fe75c21cf448b588408ebf31a3e7dc~mv2.png/v1/fill/w_749,h_522,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_16fe75c21cf448b588408ebf31a3e7dc~mv2.png",
     imageSearch: "John Deere 80kW diesel generator"
   },
   {
@@ -1918,13 +1918,13 @@ const PRODUCTS = [
     category: "industrial",
     kw: 250,
     fuel: "Diesel",
-    price: 8000,
-    originalPrice: 9000,
+    price: 10000,
+    originalPrice: 15000,
     description: "John Deere 250kW industrial diesel — the PowerTech Plus engine combined with advanced controls for paralleling, load sharing, and remote monitoring.",
     features: ["John Deere PowerTech Plus engine", "PowerCommand 3.3 paralleling", "SCADA integration capable", "Anti-vibration isolation mounts"],
-    inStock: false,
+    inStock: true,
     badge: null,
-    image: "https://static.wixstatic.com/media/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg/v1/fill/w_1055,h_827,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg",
+    image: "https://static.wixstatic.com/media/a10320_56b91adb5f1b4342b06d1fd24899f092~mv2.jpeg/v1/fill/w_241,h_189,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/a10320_56b91adb5f1b4342b06d1fd24899f092~mv2.jpeg",
     imageSearch: "John Deere 250kW industrial diesel generator"
   },
   {
@@ -1934,13 +1934,13 @@ const PRODUCTS = [
     category: "industrial",
     kw: 400,
     fuel: "Diesel",
-    price: 9200,
-    originalPrice: 10400,
+    price: 17000,
+    originalPrice: 24000,
     description: "John Deere 400kW — industrial-grade diesel power for data centres, manufacturing plants, and utility infrastructure. Backed by John Deere's unmatched global service.",
     features: ["John Deere 6090 Series engine", "Integrated paralleling switchgear", "IP23 weather protection", "2,500-hour service interval"],
-    inStock: false,
+    inStock: true,
     badge: null,
-    image: "https://static.wixstatic.com/media/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg/v1/fill/w_1055,h_827,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_c161735fee224c788ef8505ff6b8abca~mv2.jpeg",
+    image: "https://static.wixstatic.com/media/a10320_ff9e8edcb5644c7482fbd9391aaf7308~mv2.jpeg/v1/fill/w_749,h_585,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a10320_ff9e8edcb5644c7482fbd9391aaf7308~mv2.jpeg",
     imageSearch: "John Deere 400kW industrial diesel generator"
   },
 
@@ -1958,7 +1958,7 @@ const PRODUCTS = [
     features: ["30kW whole-home protection", "Wi-Fi Mobile Link monitoring", "Automatic transfer in 10 seconds", "Runs on natural gas or LP"],
     inStock: true,
     badge: "Best Seller",
-    image: "https://www.generac.com/globalassets/products/residential/standby-generators/gaseous/g0072090--24kw/7209-pdp-images-1.jpg",
+    image: "https://th.bing.com/th/id/OIP.JMQfj0pAmmc9oLKxTeGzAAHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Generac Guardian 30kW home standby generator"
   },
   {
@@ -1974,7 +1974,7 @@ const PRODUCTS = [
     features: ["Automatic 10-second transfer", "Quiet 64 dB operation", "7-year structural warranty", "Wi-Fi remote monitoring"],
     inStock: true,
     badge: null,
-    image: "https://wholesale-generators.com/wp-content/uploads/2025/09/15kW-Yanmar.jpg",
+    image: "https://th.bing.com/th/id/OIP.LYK1otkC0k-nYrghv43dvQHaHa?w=180&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Yanmar 16kW home standby natural gas generator"
   },
   {
@@ -1990,7 +1990,7 @@ const PRODUCTS = [
     features: ["36kW premium whole-home power", "Wi-Fi + cellular monitoring", "Ultra-quiet operation", "Corrosion-proof aluminium enclosure"],
     inStock: true,
     badge: null,
-    image: "https://www.generac.com/globalassets/products/residential/standby-generators/gaseous/g0072090--24kw/7209-pdp-images-1.jpg",
+    image: "https://th.bing.com/th/id/OIP.Sud-aVmrX2vbKmgNmQMFFQHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     imageSearch: "Generac Guardian 36kW home standby generator"
   }
 
