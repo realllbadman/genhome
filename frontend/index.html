@@ -1088,6 +1088,9 @@
           <label class="filter-option"><input type="checkbox" value="john deere"  onchange="applyFilters()"> John Deere</label>
           <label class="filter-option"><input type="checkbox" value="yamaha"      onchange="applyFilters()"> Yamaha</label>
           <label class="filter-option"><input type="checkbox" value="westinghouse" onchange="applyFilters()"> Westinghouse</label>
+          <label class="filter-option"><input type="checkbox" value="perkins"     onchange="applyFilters()"> Perkins</label>
+          <label class="filter-option"><input type="checkbox" value="mtu"         onchange="applyFilters()"> MTU</label>
+          <label class="filter-option"><input type="checkbox" value="duromax"     onchange="applyFilters()"> DuroMax</label>
         </div>
       </div>
       <div class="filter-section">
@@ -1721,7 +1724,7 @@
     }
     if (!matches.length) { box.classList.remove('open'); return; }
     box.innerHTML = matches.map(p => `
-      <div class="sug-item" onclick="handleSearch('${p.name.replace(/'/g,"\\'")}')">
+      <div class="sug-item" onclick="closeAllSuggestions();openProductModal('${p.id}')">
         <div class="sug-info">
           <div class="sug-name">${p.name}</div>
           <div class="sug-meta">${p.brand} · ${p.kw}kW · ${p.fuel}</div>
