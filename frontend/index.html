@@ -593,43 +593,37 @@
       font-size: .8rem; color: rgba(255,255,255,.35);
     }
 
-    /* ── MOBILE MENU ─────────────────────────────────────────────────────── */
-    .mobile-menu {
-      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
-      z-index: 198; background: var(--dark);
-      padding: 1rem 1.25rem 1.25rem;
-      flex-direction: column; gap: .85rem;
-      border-top: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    /* ── MOBILE BAR (always visible on mobile) ───────────────────────────── */
+    .mobile-bar {
+      display: none; position: fixed; left: 0; right: 0; z-index: 198;
+      background: #1a1a1a; border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .mobile-menu.open { display: flex; }
-    .mm-phone {
-      color: #fff; font-size: 1rem; font-weight: 700;
-      text-decoration: none; display: block;
+    .mobile-bar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .5rem 1rem; gap: .75rem;
     }
-    .mm-socials {
-      display: flex; gap: .75rem; align-items: center;
-    }
+    .mb-socials { display: flex; align-items: center; gap: .5rem; }
+    .mb-label { color: rgba(255,255,255,.45); font-size: .72rem; white-space: nowrap; }
     .mm-social-icon {
       display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 8px;
-      background: rgba(255,255,255,.12); color: #fff;
+      width: 32px; height: 32px; border-radius: 7px;
+      background: rgba(255,255,255,.1); color: #fff;
       text-decoration: none; transition: background .2s;
     }
-    .mm-social-icon:hover { background: rgba(255,255,255,.22); }
-    .mm-actions { display: flex; gap: .75rem; }
-    .mm-btn {
-      flex: 1; background: var(--accent); color: #fff; border: none;
-      border-radius: 8px; padding: .7rem 1rem;
-      font-size: .92rem; font-weight: 600; cursor: pointer;
-      text-align: center; text-decoration: none;
-      transition: background .2s;
+    .mm-social-icon:hover { background: rgba(255,255,255,.2); }
+    .mb-actions { display: flex; gap: .5rem; }
+    .mb-btn {
+      background: var(--accent); color: #fff; border: none;
+      border-radius: 7px; padding: .45rem .9rem;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; white-space: nowrap; transition: background .2s;
     }
-    .mm-btn:hover { background: #b57a09; }
-    .mm-btn.outline {
-      background: transparent; border: 1.5px solid rgba(255,255,255,.3);
+    .mb-btn:hover { background: #b57a09; }
+    .mb-btn-outline {
+      background: transparent; border: 1.5px solid rgba(255,255,255,.25); color: #fff;
     }
-    .mm-btn.outline:hover { background: rgba(255,255,255,.1); }
+    .mb-btn-outline:hover { background: rgba(255,255,255,.1); }
 
     /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -653,8 +647,9 @@
       .nav-mobile-actions { order: 2; margin-left: auto; display: flex; align-items: center; gap: .5rem; }
       .nav-search { order: 3; width: 100%; max-width: 100%; flex: none; }
       .nav-right { display: none; }
-      .hamburger { display: flex; }
-      body { padding-top: calc(var(--nav-h) + var(--cat-h) + 44px); }
+      .hamburger { display: none; }
+      .mobile-bar { display: block; top: calc(var(--nav-h) + 44px); }
+      body { padding-top: calc(var(--nav-h) + var(--cat-h) + 44px + 44px); }
     }
     @media (max-width: 480px) {
       .product-grid { grid-template-columns: 1fr 1fr; }
@@ -924,12 +919,6 @@
       <a class="nav-social-icon" href="https://mail.google.com/mail/?view=cm&to=genhome41@gmail.com" title="Email Us" target="_blank" rel="noopener">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
       </a>
-      <a class="nav-social-icon" href="https://wa.me/message/GUYDIOVVVAZAJ1" title="WhatsApp" target="_blank" rel="noopener">
-        <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.665 4.61 1.813 6.51L4 29l7.695-1.788A11.94 11.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.02-1.357l-.36-.214-4.57 1.062 1.094-4.46-.237-.376A9.953 9.953 0 0 1 6 15c0-5.523 4.477-10 10-10zm-2.99 5.5c-.2 0-.52.075-.795.375C11.94 11.175 11 12.225 11 13.75c0 1.525 1.256 3 1.43 3.207.175.206 2.395 3.793 5.913 5.168 2.923 1.14 3.516.913 4.148.856.632-.056 2.04-.833 2.327-1.638.287-.806.287-1.495.2-1.638-.087-.144-.319-.231-.663-.406-.344-.175-2.04-1.006-2.356-1.12-.319-.113-.55-.17-.782.175-.232.344-.894 1.12-1.096 1.35-.2.232-.4.26-.744.088-.344-.175-1.454-.537-2.77-1.709-1.023-.913-1.714-2.04-1.914-2.384-.2-.344-.022-.531.15-.703.155-.155.344-.406.519-.606.175-.2.231-.344.344-.575.113-.231.056-.431-.028-.606-.087-.175-.756-1.856-1.05-2.525-.262-.619-.538-.544-.756-.556a9.2 9.2 0 0 0-.632-.019z"/></svg>
-      </a>
-      <a class="nav-social-icon" href="https://www.tiktok.com/@genhome6" title="TikTok" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor"><path d="M16.5 2a.5.5 0 0 0-.5.5v18a3 3 0 1 1-4-2.83V13.5a.5.5 0 0 0-.6-.49C8.1 13.8 5 17.05 5 21a9 9 0 0 0 18 0V11.22a10.94 10.94 0 0 0 5 1.28.5.5 0 0 0 .5-.5V7.5a.5.5 0 0 0-.44-.498A6.01 6.01 0 0 1 22.5 2.5a.5.5 0 0 0-.5-.5z"/></svg>
-      </a>
       <a class="nav-social-icon" href="https://www.facebook.com/share/1E1gYUw7Ga/?mibextid=wwXIfr" title="Facebook" target="_blank" rel="noopener">
         <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 16c0 6.016 4.18 11.07 9.812 12.48V19.5H11v-3.5h2.813v-2.688c0-2.766 1.64-4.312 4.172-4.312 1.207 0 2.469.215 2.469.215v2.719h-1.39c-1.371 0-1.798.85-1.798 1.722V16H20.5l-.547 3.5H17.25v9.98C22.82 27.07 27 22.016 27 16c0-6.627-5.373-12-11-12z"/></svg>
       </a>
@@ -943,26 +932,22 @@
 </nav>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="tel:+16016013408" class="mm-phone">+1 (601) 601-3408</a>
-  <div class="mm-socials">
-    <span style="color:rgba(255,255,255,.5);font-size:.8rem;">Get to us on</span>
-    <a class="mm-social-icon" href="https://mail.google.com/mail/?view=cm&to=genhome41@gmail.com" target="_blank" rel="noopener" title="Email">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    </a>
-    <a class="mm-social-icon" href="https://wa.me/message/GUYDIOVVVAZAJ1" target="_blank" rel="noopener" title="WhatsApp">
-      <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.665 4.61 1.813 6.51L4 29l7.695-1.788A11.94 11.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.02-1.357l-.36-.214-4.57 1.062 1.094-4.46-.237-.376A9.953 9.953 0 0 1 6 15c0-5.523 4.477-10 10-10zm-2.99 5.5c-.2 0-.52.075-.795.375C11.94 11.175 11 12.225 11 13.75c0 1.525 1.256 3 1.43 3.207.175.206 2.395 3.793 5.913 5.168 2.923 1.14 3.516.913 4.148.856.632-.056 2.04-.833 2.327-1.638.287-.806.287-1.495.2-1.638-.087-.144-.319-.231-.663-.406-.344-.175-2.04-1.006-2.356-1.12-.319-.113-.55-.17-.782.175-.232.344-.894 1.12-1.096 1.35-.2.232-.4.26-.744.088-.344-.175-1.454-.537-2.77-1.709-1.023-.913-1.714-2.04-1.914-2.384-.2-.344-.022-.531.15-.703.155-.155.344-.406.519-.606.175-.2.231-.344.344-.575.113-.231.056-.431-.028-.606-.087-.175-.756-1.856-1.05-2.525-.262-.619-.538-.544-.756-.556a9.2 9.2 0 0 0-.632-.019z"/></svg>
-    </a>
-    <a class="mm-social-icon" href="https://www.tiktok.com/@genhome6" target="_blank" rel="noopener" title="TikTok">
-      <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor"><path d="M16.5 2a.5.5 0 0 0-.5.5v18a3 3 0 1 1-4-2.83V13.5a.5.5 0 0 0-.6-.49C8.1 13.8 5 17.05 5 21a9 9 0 0 0 18 0V11.22a10.94 10.94 0 0 0 5 1.28.5.5 0 0 0 .5-.5V7.5a.5.5 0 0 0-.44-.498A6.01 6.01 0 0 1 22.5 2.5a.5.5 0 0 0-.5-.5z"/></svg>
-    </a>
-    <a class="mm-social-icon" href="https://www.facebook.com/share/1E1gYUw7Ga/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook">
-      <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 16c0 6.016 4.18 11.07 9.812 12.48V19.5H11v-3.5h2.813v-2.688c0-2.766 1.64-4.312 4.172-4.312 1.207 0 2.469.215 2.469.215v2.719h-1.39c-1.371 0-1.798.85-1.798 1.722V16H20.5l-.547 3.5H17.25v9.98C22.82 27.07 27 22.016 27 16c0-6.627-5.373-12-11-12z"/></svg>
-    </a>
-  </div>
-  <div class="mm-actions">
-    <button class="mm-btn" onclick="openQuote(null);toggleMobileMenu()">Get a Quote</button>
-    <a href="/about" class="mm-btn outline">About Us</a>
+<!-- Mobile secondary bar — always visible on mobile -->
+<div class="mobile-bar" id="mobileBar">
+  <div class="mobile-bar-inner">
+    <div class="mb-socials">
+      <span class="mb-label">Get to us on</span>
+      <a class="mm-social-icon" href="https://mail.google.com/mail/?view=cm&to=genhome41@gmail.com" target="_blank" rel="noopener" title="Email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a class="mm-social-icon" href="https://www.facebook.com/share/1E1gYUw7Ga/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook">
+        <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 16c0 6.016 4.18 11.07 9.812 12.48V19.5H11v-3.5h2.813v-2.688c0-2.766 1.64-4.312 4.172-4.312 1.207 0 2.469.215 2.469.215v2.719h-1.39c-1.371 0-1.798.85-1.798 1.722V16H20.5l-.547 3.5H17.25v9.98C22.82 27.07 27 22.016 27 16c0-6.627-5.373-12-11-12z"/></svg>
+      </a>
+    </div>
+    <div class="mb-actions">
+      <button class="mb-btn" onclick="openQuote(null)">Get a Quote</button>
+      <a href="/about" class="mb-btn mb-btn-outline">About Us</a>
+    </div>
   </div>
 </div>
 
@@ -1185,12 +1170,6 @@
           <a href="https://mail.google.com/mail/?view=cm&to=genhome41@gmail.com" target="_blank" rel="noopener" title="Email Us" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;transition:background .2s;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </a>
-          <a href="https://wa.me/message/GUYDIOVVVAZAJ1" target="_blank" rel="noopener" title="WhatsApp" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;transition:background .2s;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-            <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.665 4.61 1.813 6.51L4 29l7.695-1.788A11.94 11.94 0 0 0 16 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.02-1.357l-.36-.214-4.57 1.062 1.094-4.46-.237-.376A9.953 9.953 0 0 1 6 15c0-5.523 4.477-10 10-10zm-2.99 5.5c-.2 0-.52.075-.795.375C11.94 11.175 11 12.225 11 13.75c0 1.525 1.256 3 1.43 3.207.175.206 2.395 3.793 5.913 5.168 2.923 1.14 3.516.913 4.148.856.632-.056 2.04-.833 2.327-1.638.287-.806.287-1.495.2-1.638-.087-.144-.319-.231-.663-.406-.344-.175-2.04-1.006-2.356-1.12-.319-.113-.55-.17-.782.175-.232.344-.894 1.12-1.096 1.35-.2.232-.4.26-.744.088-.344-.175-1.454-.537-2.77-1.709-1.023-.913-1.714-2.04-1.914-2.384-.2-.344-.022-.531.15-.703.155-.155.344-.406.519-.606.175-.2.231-.344.344-.575.113-.231.056-.431-.028-.606-.087-.175-.756-1.856-1.05-2.525-.262-.619-.538-.544-.756-.556a9.2 9.2 0 0 0-.632-.019z"/></svg>
-          </a>
-          <a href="https://www.tiktok.com/@genhome6" target="_blank" rel="noopener" title="TikTok" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;transition:background .2s;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-            <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor"><path d="M16.5 2a.5.5 0 0 0-.5.5v18a3 3 0 1 1-4-2.83V13.5a.5.5 0 0 0-.6-.49C8.1 13.8 5 17.05 5 21a9 9 0 0 0 18 0V11.22a10.94 10.94 0 0 0 5 1.28.5.5 0 0 0 .5-.5V7.5a.5.5 0 0 0-.44-.498A6.01 6.01 0 0 1 22.5 2.5a.5.5 0 0 0-.5-.5z"/></svg>
-          </a>
           <a href="https://www.facebook.com/share/1E1gYUw7Ga/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;transition:background .2s;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
             <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 16c0 6.016 4.18 11.07 9.812 12.48V19.5H11v-3.5h2.813v-2.688c0-2.766 1.64-4.312 4.172-4.312 1.207 0 2.469.215 2.469.215v2.719h-1.39c-1.371 0-1.798.85-1.798 1.722V16H20.5l-.547 3.5H17.25v9.98C22.82 27.07 27 22.016 27 16c0-6.627-5.373-12-11-12z"/></svg>
           </a>
@@ -1199,7 +1178,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&copy; <span id="footerYear"></span> GenHome Sales. All rights reserved.</span>
+    <span>&copy; <span id="footerYear"></span> GenHome Sales. Est. 2018. All rights reserved.</span>
     <span>Prices subject to change. Call to confirm availability.</span>
   </div>
 </footer>
@@ -1537,7 +1516,7 @@
 <!-- ── JAVASCRIPT ─────────────────────────────────────────────────────────────── -->
 <script src="/static/products.js"></script>
 <script>
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  document.getElementById('footerYear').textContent = '2018';
 
   // Active filters state
   let state = {
