@@ -11,7 +11,7 @@ A full-stack e-commerce style website for generator sales. Customers can browse 
 | Backend | FastAPI + SQLAlchemy + SQLite |
 | Frontend | Plain HTML / CSS / JS |
 | Email | aiosmtplib (async Gmail SMTP) |
-| Live Chat | Smartsupp |
+| Live Chat | Tawk.to |
 | Server | Uvicorn (ASGI) |
 
 ---
